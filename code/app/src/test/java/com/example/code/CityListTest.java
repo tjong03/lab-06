@@ -44,4 +44,41 @@ class CityListTest {
         assertEquals(0, city.compareTo(cityList.getCities().get(0)));
         assertEquals(0, mockCity().compareTo(cityList.getCities().get(1)));
     }
+
+    @Test
+    void testHasCity() {
+        CityList cityList = mockCityList();
+        City existing = mockCity();
+        assertTrue(cityList.hasCity(existing)); // same fields
+
+        City notPresent = new City("Calgary", "Alberta");
+        assertFalse(cityList.hasCity(notPresent));
+    }
+
+    @Test
+    void testDeleteRemovesCity() {
+        CityList cityList = mockCityList();
+        City city = mockCity();
+        assertTrue(cityList.hasCity(city));
+        cityList.delete(city);
+        assertFalse(cityList.hasCity(city));
+        assertEquals(0, cityList.countCities());
+    }
+
+    @Test
+    void testDeleteThrowsExceptionIfNotPresent() {
+        CityList cityList = mockCityList();
+        City notPresent = new City("Iqaluit", "Nunavut");
+        assertThrows(IllegalArgumentException.class, () -> {
+            cityList.delete(notPresent);
+        });
+    }
+
+    @Test
+    void testCountCities() {
+        CityList cityList = mockCityList();
+        assertEquals(1, cityList.countCities());
+        cityList.add(new City("Regina", "Saskatchewan"));
+        assertEquals(2, cityList.countCities());
+    }
 }
