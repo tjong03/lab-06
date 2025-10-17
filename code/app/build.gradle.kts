@@ -6,6 +6,10 @@ android {
     namespace = "com.example.code"
     compileSdk = 35
 
+    tasks.withType<Test>{
+        useJUnitPlatform()
+    }
+    
     defaultConfig {
         applicationId = "com.example.code"
         minSdk = 24
@@ -40,4 +44,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.0.1")
+    implementation(files("C:\\Users\\Admin User\\AppData\\Local\\Android\\Sdk\\platforms\\android-35\\android.jar"))
 }
